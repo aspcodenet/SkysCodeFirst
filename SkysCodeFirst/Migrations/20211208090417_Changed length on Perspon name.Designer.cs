@@ -3,41 +3,23 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SkysCodeFirst.Data;
 
 namespace SkysCodeFirst.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20211208090417_Changed length on Perspon name")]
+    partial class ChangedlengthonPersponname
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("ProductVersion", "5.0.12")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-            modelBuilder.Entity("SkysCodeFirst.Data.County", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("ContactPerson")
-                        .HasMaxLength(150)
-                        .HasColumnType("nvarchar(150)");
-
-                    b.Property<string>("Name")
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("County");
-                });
 
             modelBuilder.Entity("SkysCodeFirst.Data.Invoice", b =>
                 {
@@ -72,20 +54,12 @@ namespace SkysCodeFirst.Migrations
                     b.Property<int>("Age")
                         .HasColumnType("int");
 
-                    b.Property<int?>("CountyId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
-                    b.Property<int>("ShoeSize")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("CountyId");
 
                     b.ToTable("Person");
                 });
@@ -95,15 +69,6 @@ namespace SkysCodeFirst.Migrations
                     b.HasOne("SkysCodeFirst.Data.Person", null)
                         .WithMany("Invoices")
                         .HasForeignKey("PersonId");
-                });
-
-            modelBuilder.Entity("SkysCodeFirst.Data.Person", b =>
-                {
-                    b.HasOne("SkysCodeFirst.Data.County", "County")
-                        .WithMany()
-                        .HasForeignKey("CountyId");
-
-                    b.Navigation("County");
                 });
 
             modelBuilder.Entity("SkysCodeFirst.Data.Person", b =>

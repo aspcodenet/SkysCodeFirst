@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SkysCodeFirst.Data;
 
 namespace SkysCodeFirst.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20211208091537_Added county")]
+    partial class Addedcounty
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -72,9 +74,6 @@ namespace SkysCodeFirst.Migrations
                     b.Property<int>("Age")
                         .HasColumnType("int");
 
-                    b.Property<int?>("CountyId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(100)
@@ -85,8 +84,6 @@ namespace SkysCodeFirst.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CountyId");
-
                     b.ToTable("Person");
                 });
 
@@ -95,15 +92,6 @@ namespace SkysCodeFirst.Migrations
                     b.HasOne("SkysCodeFirst.Data.Person", null)
                         .WithMany("Invoices")
                         .HasForeignKey("PersonId");
-                });
-
-            modelBuilder.Entity("SkysCodeFirst.Data.Person", b =>
-                {
-                    b.HasOne("SkysCodeFirst.Data.County", "County")
-                        .WithMany()
-                        .HasForeignKey("CountyId");
-
-                    b.Navigation("County");
                 });
 
             modelBuilder.Entity("SkysCodeFirst.Data.Person", b =>

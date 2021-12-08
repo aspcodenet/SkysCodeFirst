@@ -25,6 +25,7 @@ namespace SkysCodeFirst.Data
 
         public DbSet<Person> Person { get; set; }
         public DbSet<Invoice> Invoice { get; set; }
+        public DbSet<County> County { get; set; }
 
     }
 }
